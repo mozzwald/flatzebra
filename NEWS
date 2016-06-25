@@ -1,0 +1,142 @@
+2012-07-14: Version 0.1.6 released
+
+    Joystick class now supports two sticks, as well as the two
+    trigger buttons. D-pad support dropped.
+    Fixed bug with Joystick::getYAxisValue().
+    Added squaredLength() and dotProduct() to Couple and RCouple.
+    PixmapArray constructor does not require fixed array size anymore;
+    the internal vector now resizes as needed.
+    Put new FSF address in GPL copyright notices.
+    Small fixes to compile under Visual C++ on Win32.
+    RPM spec file rewritten using Fedora template.
+    (RPM spec file now compatible with /usr/lib64 directory.)
+
+2010-05-16: Version 0.1.5 released
+
+    Added support for toggling between full screen mode and
+    window mode.
+    Centralized pixel, line and filled rectangle drawing
+    functions that were previously in Cosmosmash.
+    Added version of writeStringXCentered() that accepts
+    a vertical position and centers the string with respect
+    to the whole screen width.
+    Centralized Xbox 360 USB controller code that was
+    previously in some flatzebra-based games.
+    Fixed compilation warnings to satisfy gcc's -Weffc++ option.
+
+2010-03-30: Version 0.1.4 released
+
+    New GameEngine constructor argument: processActiveEvent.
+    New virtual function: processActivation().
+    Together, they allow a game to go to pause when it loses
+    focus or is iconified.
+    In full screen mode, the mouse pointer is now disabled.
+
+2009-06-21: Version 0.1.3 released
+
+    Fixed SDL_LIBS in configure.ac so that "-lSDL_image -lSDL_mixer"
+    will be inserted in the dependency_libs field of the installed
+    .la file. The flatzebra shared library will also specify
+    SDL_image and SDL_mixer as being needed (according to ldd).
+
+    Fixed compilation warnings.
+
+2009-02-26: Version 0.1.2 released
+
+    Pixmap leak fixed.
+
+    The font_13x7.xpm file now defines "const char **" arrays.
+    The loadPixmap() methods now expect a "const char **" argument.
+
+    Each Sprite instance has a unique ID across a single execution
+    of the program.
+
+    RCouple now has floor() and ceil() methods, and they return a
+    result of type Couple, like round().
+
+    Better error checking in SDL initialization procedure.
+
+2004-05-02: Version 0.1.1 released
+
+    New classes RCouple and RSprite that allow one to write games
+    with coordinates in real numbers instead of integers.
+    Some convenience functions have been added.
+    The audio "chunk size" is now 128 bytes instead of 256, to help
+    avoid delays before a sound effect is heard.
+
+2003-06-02: Version 0.1.0 released
+
+    New name to reform the version numbers.
+
+    The library is now defined in the `flatzebra' C++ namespace.
+
+    There is no flatzebra.m4 anymore.  Use pkg-config with
+    'flatzebra-1.0' as the module name.
+
+    Sound mixer class added.  Key state class added.
+
+    SDL_HWSURFACE not used anymore when setting up full screen mode:
+    it has been reported to cause much flickering under Mac OS X,
+    and it does not seem to be required under GNU/Linux anyway.
+    Cleanup of makefiles.
+
+2002-04-03: gengameng 4.1 released
+
+    Library now comes with a "dynamic" gengameng-config script that
+    replaces the "static" gengamengConf.sh script.  The latter takes
+    the options --version, --cflags, --libs and --help, in a manner
+    similar to sdl-config.
+
+    There is a homegrown sdl_image.m4 in macros/ that tries to link
+    with the SDL_image library, which is needed in addition to SDL.
+    SDL_image is available at <http://www.libsdl.org/projects/SDL_image/>.
+
+    These changes do not affect the binary interface of the library.
+    This is why only the minor version number has increased.
+
+2001-11-25: gengameng 4.0 released
+
+    Programs that use this library should use an #include directive
+    of this form:
+
+        #include <gengameng/GameEngine.h>
+
+    instead of:
+
+        #include <GameEngine.h>
+
+    Those programs will thus better document which headers are taken
+    for this library.
+
+2001-04-27: gengameng 3.0 released
+
+    This version now uses SDL (http://www.libsdl.org/).
+
+2001-03-24: gengameng 2.1 started
+
+    The statement
+
+        #include "PixmapLoadError.h"
+
+    was added in src/GameEngine.h to make this file compile under
+    RedHat 7.0, which uses g++ 2.96.  I use g++ 2.95.2 under
+    RedHat 6.2.
+
+    Also, gengameng 2.1 does not link with libXaw nor libXmu anymore.
+    Preceding versions used superfluous -l directives.
+
+    The library's interface does not change because of this,
+    so only the "release" number is incremented.
+
+2001-03-13: gengameng 2.0 released
+
+    Version 2.0 avoids polling the keyboard with XQueryKeymap()
+    and expects instead to be informed of key state changes upon
+    KeyPress and KeyRelease events.  See xtmain.cc in BurgerSpace
+    for an example of how to get those events and how to transmit
+    the information to the game engine.
+
+    This change seems to solve some of the problems of people who
+    reported that the game did not receive any keyboard input.
+    However, there are still reports of similar problems.
+

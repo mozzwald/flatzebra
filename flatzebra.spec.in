@@ -1,0 +1,74 @@
+Name:           @PACKAGE@
+Version:        @VERSION@
+Release:        1%{?dist}
+Summary:        @PACKAGE_SUMMARY_EN@
+Summary(fr):    @PACKAGE_SUMMARY_FR@
+
+Group:          Development/Libraries
+License:        GPLv2+
+URL:            http://sarrazip.com/dev/burgerspace.html
+Source0:        http://sarrazip.com/dev/%{name}-%{version}.tar.gz
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+BuildRequires:  SDL-devel       >= @MINVER_SDL@
+BuildRequires:  SDL_image-devel >= @MINVER_SDL_IMAGE@
+BuildRequires:  SDL_mixer-devel >= @MINVER_SDL_MIXER@
+
+%description
+Small game engine library required by BurgerSpace and other games.
+
+%description -l fr
+Petit moteur de jeu requis par BurgerSpace et autres jeux.
+
+
+%package devel
+Summary:        C++ header files for the @PACKAGE@ library
+Summary(fr):    En-têtes C++ pour la librairie @PACKAGE@.
+Group:          Development/Libraries
+Requires:       %{name} = %{version}-%{release}
+
+%description devel
+C++ header files to develop with the @PACKAGE@ library.
+
+%description -l fr devel
+En-têtes C++ pour développer avec la librairie @PACKAGE@.
+
+
+%prep
+%setup -q
+
+
+%build
+%configure
+make %{?_smp_mflags}
+
+
+%install
+rm -rf $RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT
+
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+ 
+%post -p /sbin/ldconfig
+
+%postun -p /sbin/ldconfig
+
+
+%files
+%defattr(-,root,root,-)
+%{_libdir}/lib*.so.*
+%doc %{_defaultdocdir}/*
+
+
+%files devel
+%defattr(-,root,root,-)
+%{_includedir}/*
+%{_libdir}/lib*.so
+%{_libdir}/lib*.la
+%{_libdir}/pkgconfig/*
+
+
+%changelog
